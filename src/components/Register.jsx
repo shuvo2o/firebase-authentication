@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 
@@ -11,10 +11,11 @@ const Register = () => {
     confirmPassword: ''
   });
 
-  const [error, setError] = useState(''); // Error message dekhanoar jonno
-  const [success, setSuccess] = useState(false); // Success message-er jonno
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const auth = getAuth(app);
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,6 +27,7 @@ const Register = () => {
     setSuccess(false);
 
     const { email, password, confirmPassword } = formData;
+    
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
@@ -35,12 +37,16 @@ const Register = () => {
       setError("Password should be at least 6 characters.");
       return;
     }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Registered User:", user);
         setSuccess(true);
-        e.target.reset(); 
+        
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       })
       .catch((error) => {
         setError(error.message);

@@ -1,13 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // correct import
+import app from '../firebase/firebase.config';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  const auth = getAuth(app);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login Details:", { email, password });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Logged in 
+        const user = userCredential.user;
+        console.log("Logged in user:", user);
+
+        navigate('/'); 
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError("Invalid email or password."); // User-friendly error
+        console.error("Login Error:", errorMessage);
+      });
   };
 
   return (
@@ -15,7 +33,7 @@ const Login = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Email Address
@@ -44,6 +62,8 @@ const Login = () => {
             />
           </div>
 
+          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
@@ -51,6 +71,7 @@ const Login = () => {
             Sign In
           </button>
         </form>
+
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
         </p>
