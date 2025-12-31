@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // correct import
+import { getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; // correct import
 import app from '../firebase/firebase.config';
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
+import { GoogleAuthProvider } from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,6 +30,17 @@ const Login = () => {
         console.error("Login Error:", errorMessage);
       });
   };
+  const handelGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log("Google Login Successful", user)
+        navigate('/')
+      }).catch((error) => {
+        console.error("Google Login Error", error)
+      });
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -78,7 +90,7 @@ const Login = () => {
         <div className='text-center space-y-4'>
           <p className='text-gray-50'>Or login with</p>
           <div className='flex justify-center space-x-2'>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
+            <button onClick={handelGoogleLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
             <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
             <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
           </div>
