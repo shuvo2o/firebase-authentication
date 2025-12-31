@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import app from '../firebase/firebase.config';
+import { FaGoogle, FaGithub,FaFacebook } from 'react-icons/fa';
+import {  } from 'react-icons/fa6';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -87,6 +89,16 @@ const Register = () => {
             Register
           </button>
         </form>
+
+         {/* social login */}
+        <div className='text-center space-y-4'>
+          <p className='text-gray-500'>Or Sign Up with</p>
+          <div className='flex justify-center space-x-2'>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
+          </div>
+        </div>
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account? <Link to="/login" className="text-green-500 hover:underline">Login here</Link>

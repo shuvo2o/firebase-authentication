@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // correct import
 import app from '../firebase/firebase.config';
-
+import { FaGoogle } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
+
   const auth = getAuth(app);
   const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const Login = () => {
         const user = userCredential.user;
         console.log("Logged in user:", user);
 
-        navigate('/'); 
+        navigate('/');
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -32,7 +34,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
-        
+
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -71,6 +73,16 @@ const Login = () => {
             Sign In
           </button>
         </form>
+
+        {/* social login */}
+        <div className='text-center space-y-4'>
+          <p className='text-gray-50'>Or login with</p>
+          <div className='flex justify-center space-x-2'>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
+          </div>
+        </div>
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
