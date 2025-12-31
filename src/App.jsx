@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import './App.css'
 import Logout from './components/Logout'
+import AuthState from './components/AuthState'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         </ul>
       </nav>
       <Logout/>
+      <AuthState/>
     </div>
      <h1 className=''>App</h1>
     </>
