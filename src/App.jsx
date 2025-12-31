@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import './App.css'
+import Logout from './components/Logout'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
           <li><Link className='px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700' to={"/login"}>Login</Link></li>
         </ul>
       </nav>
+      <Logout/>
     </div>
      <h1 className=''>App</h1>
     </>
