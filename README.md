@@ -52,22 +52,6 @@ npm run dev
 
 ```
 
-
-
-## 📂 Project Structure
-
-```text
-src/
-├── components/
-│   ├── Login.jsx         # Login logic & UI
-│   └── Register.jsx      # Registration logic & UI
-├── firebase/
-│   └── firebase.config.js # Firebase initialization
-├── App.jsx               # Route definitions
-└── main.jsx              # Application entry point
-
-```
-
 ## 📝 Key Components Explained
 
 ### 1. Registration Logic
