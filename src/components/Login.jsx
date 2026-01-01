@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; // correct import
+import { getAuth, GithubAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; // correct import
 import app from '../firebase/firebase.config';
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa6";
@@ -40,6 +40,18 @@ const Login = () => {
       }).catch((error) => {
         console.error("Google Login Error", error)
       });
+  }
+  const handelGithubLogin =() =>{
+    const githubProvider = new GithubAuthProvider();
+    signInWithPopup(auth, githubProvider)
+  .then((result) => {
+    const user = result.user;
+    console.log("Github Login Successful", user)
+    navigate('/')
+  }).catch((error) => {
+   console.error("Failed to login with Github", error)
+  });
+
   }
 
   return (
@@ -92,7 +104,7 @@ const Login = () => {
           <div className='flex justify-center space-x-2'>
             <button onClick={handelGoogleLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
             <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
+            <button onClick={handelGithubLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
           </div>
         </div>
 
