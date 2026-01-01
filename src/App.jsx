@@ -12,12 +12,13 @@ function App() {
         <ul className='flex items-center justify-center space-x-4'>
           <li><Link className='px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700' to={"/register"}>Register</Link></li>
           <li><Link className='px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700' to={"/login"}>Login</Link></li>
+          <li><Link className='px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700' to={"/dashboard"}>Dashboard</Link></li>
         </ul>
       </nav>
       <Logout/>
       <AuthState/>
     </div>
-     <h1 className=''>App</h1>
+     
     </>
   )
 }
