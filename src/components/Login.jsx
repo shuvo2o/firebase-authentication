@@ -41,16 +41,16 @@ const Login = () => {
         console.error("Google Login Error", error)
       });
   }
-  const handelGithubLogin =() =>{
+  const handelGithubLogin = () => {
     const githubProvider = new GithubAuthProvider();
     signInWithPopup(auth, githubProvider)
-  .then((result) => {
-    const user = result.user;
-    console.log("Github Login Successful", user)
-    navigate('/')
-  }).catch((error) => {
-   console.error("Failed to login with Github", error)
-  });
+      .then((result) => {
+        const user = result.user;
+        console.log("Github Login Successful", user)
+        navigate('/')
+      }).catch((error) => {
+        console.error("Failed to login with Github", error)
+      });
 
   }
 
@@ -100,10 +100,9 @@ const Login = () => {
 
         {/* social login */}
         <div className='text-center space-y-4'>
-          <p className='text-gray-50'>Or login with</p>
+          <p className='text-gray-500 mt-2'>Or login with</p>
           <div className='flex justify-center space-x-2'>
             <button onClick={handelGoogleLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
             <button onClick={handelGithubLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
           </div>
         </div>
