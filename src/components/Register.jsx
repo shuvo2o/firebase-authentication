@@ -64,22 +64,22 @@ const Register = () => {
         <form onSubmit={handleRegister}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
-            <input name="username" type="text" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
+            <input name="username" type="text" placeholder='Enter User Name' className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-            <input name="email" type="email" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
+            <input name="email" type="email" placeholder='Enter Email Address' className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <input name="password" type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
+            <input name="password" placeholder='Enter Password' type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
           </div>
 
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
-            <input name="confirmPassword" type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
+            <input name="confirmPassword" placeholder='Enter Confirm Password' type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
           </div>
 
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
@@ -95,7 +95,6 @@ const Register = () => {
           <p className='text-gray-500'>Or Sign Up with</p>
           <div className='flex justify-center space-x-2'>
             <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700'><FaFacebook /> <span>Facebook</span></button>
             <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
           </div>
         </div>
