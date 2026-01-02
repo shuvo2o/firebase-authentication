@@ -29,14 +29,6 @@ A secure and responsive authentication system built with **React.js**, **Firebas
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 
-```
-
-
-2. **Install dependencies:**
-```bash
-npm install
-
-```
 
 
 3. **Configure Firebase:**
