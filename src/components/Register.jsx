@@ -1,110 +1,88 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import app from '../firebase/firebase.config';
-import { FaGoogle, FaGithub,FaFacebook } from 'react-icons/fa';
-import {  } from 'react-icons/fa6';
+import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  // console.log("email: ", email)
+  // console.log("password: ", password)
   const auth = getAuth(app);
-  const navigate = useNavigate(); 
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate()
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess(false);
-
-    const { email, password, confirmPassword } = formData;
-    
-    if (password !== confirmPassword) {
-      setError("Passwords do not match!");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password should be at least 6 characters.");
-      return;
-    }
-
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        // Signed up 
         const user = userCredential.user;
-        console.log("Registered User:", user);
-        setSuccess(true);
-        
+        sendEmailVerification(user)
+          .then(() => {
+            // Email verification sent!
+            setMessage("Registration successful! A varification email has been sent to your email address")
+            console.log("Varification email has been sent", user.email)
+            // ...
+          }).catch(error => console.error("Error sending varification email", error.message));
+
+
+        // optional for navigating to login page
         setTimeout(() => {
-          navigate('/login');
-        }, 2000);
+          alert("Registration successful!")
+          navigate("/login")
+          console.log("User signed:", user)
+        }, 10000)
+        // ...
       })
       .catch((error) => {
-        setError(error.message);
-        console.error("Error Code:", error.code);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage)
+        // ..
       });
-  };
-
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
-        
-        <form onSubmit={handleRegister}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
-            <input name="username" type="text" placeholder='Enter User Name' className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
+    <div className='flex items-center justify-center min-h-screen bg-gray-100'>
+      <div className='w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg'>
+        <h2 className='text-2xl font-bold text-center text-gray-800'>Please Register</h2>
+        {
+          message && <p className='text-red-600 italic my-1 text-sm'>{message}</p>
+        }
+        <form onSubmit={handleRegister} className='space-y-4'>
+          <div>
+            <label className='block mb-2 text-sm font-medium text-gray-700'>Email: </label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder='Enter your email' className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent' />
+          </div>
+          <div>
+            <label className='block mb-2 text-sm font-medium text-gray-700'>Password: </label>
+            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder='Enter your password' className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent' />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-            <input name="email" type="email" placeholder='Enter Email Address' className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <input name="password" placeholder='Enter Password' type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
-            <input name="confirmPassword" placeholder='Enter Confirm Password' type="password" className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-green-500" onChange={handleChange} required />
-          </div>
-
-          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-          {success && <p className="text-green-500 text-xs italic mb-4">Registration Successful!</p>}
-
-          <button type="submit" className="w-full bg-green-500 text-white font-bold py-2 rounded-md hover:bg-green-600 transition">
-            Register
-          </button>
+          <button type='submit' className='w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700'>Sign Up</button>
         </form>
 
-         {/* social login */}
+        {/* social login */}
+
+        {/* social login */}
         <div className='text-center space-y-4'>
-          <p className='text-gray-500'>Or Sign Up with</p>
-          <div className='flex justify-center space-x-2'>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700'><FaGoogle /> <span>Google</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-black rounded hover:bg-gray-700'><FaGithub /><span>Github</span></button>
+          <p className='text-gray-600'>Or signup with</p>
+          <div className='flex justify-center space-x-4'>
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded  hover:bg-red-600'>
+              <FaGoogle /> <span>Google</span>
+            </button>
+
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded  hover:bg-blue-600'> <FaFacebook /> <span>Facebook</span></button>
+
+            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-gray-800 rounded  hover:bg-gray-900'><FaGithub /> <span>GitHub</span></button>
           </div>
         </div>
 
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account? <Link to="/login" className="text-green-500 hover:underline">Login here</Link>
-        </p>
+        <p className='text-sm text-center text-gray-600'>Already have an account? Please  <Link to="/login" className='text-blue-600 hover:underline'>Log In</Link></p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
