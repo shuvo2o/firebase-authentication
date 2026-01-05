@@ -8,6 +8,7 @@ import Login from './components/Login.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import PrivateRoute from './routers/PrivateRoute.jsx'
+import UserProfile from './components/UserProfile.jsx'
 
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path='/user-profile' element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
       </Routes>
     </BrowserRouter>
   </AuthProvider>
