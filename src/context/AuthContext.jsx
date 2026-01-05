@@ -1,33 +1,54 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config';
 
 const AuthContext = createContext();
-const auth = getAuth(app);
 
 export const useAuth = () => useContext(AuthContext);
 
+const auth = getAuth(app);
+
 export const AuthProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Added loading state
 
-    useEffect(() => {
+    const [currentUser, setCurrentUser] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect( () => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurrentUser(user); // If user is null (logged out), it updates correctly
-            setLoading(false);    // Once Firebase responds, stop loading
-        });
+            setLoading(false)
+            if (user) {
+             setCurrentUser(user)
+            } else{
+                setCurrentUser(null)
+            }
+          });
 
-        return () => unsubscribe();
-    }, []); // 'auth' is stable, so an empty array is fine here
+        return () => unsubscribe()
+    }, [auth])
 
-    const value = { 
-        currentUser,
-        loading 
-    };
+    // update profile  functionality
+    const updateUserProfile = async (newProfile) => {
+        if(currentUser) {
+            try {
+               await updateProfile(currentUser, newProfile);
 
-    return (
+               setCurrentUser((prevUser) => ({
+                ...prevUser, 
+                ...newProfile
+               }))
+            } catch (error) {
+                console.error("Error updating profile", error.message);
+                throw error;
+            }
+        } else{
+          throw new Error( "No user is currently Signed in.")  
+        }
+    }
+
+    const value = {currentUser, loading, updateUserProfile}
+    return  (
         <AuthContext.Provider value={value}>
-            {!loading && children} 
+            { children }
         </AuthContext.Provider>
-    );
-};
+    )
+}
