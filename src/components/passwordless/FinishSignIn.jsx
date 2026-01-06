@@ -35,8 +35,8 @@ const FinishSignIn = () => {
             window.localStorage.removeItem('emailForSignIn');
             navigate("/dashboard")
         } catch (error) {
-            console.error("Error completing sign-in:", error.message)
-            setMessage("Failed to complete sign-in. Please try again.")
+            console.error("Error completing Sign-in:", error.message)
+            setMessage("Failed to complete Sign-in. Please try again....")
         }
     }
   return (
