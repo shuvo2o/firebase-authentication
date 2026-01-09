@@ -24,13 +24,6 @@ A secure and responsive authentication system built with **React.js**, **Firebas
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repository:**
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-
-
-
 3. **Configure Firebase:**
 * Go to the [Firebase Console](https://console.firebase.google.com/).
 * Create a new project and enable **Email/Password** in the Authentication section.
