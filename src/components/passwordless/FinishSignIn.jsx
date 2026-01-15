@@ -35,8 +35,8 @@ const FinishSignIn = () => {
             window.localStorage.removeItem('emailForSignIn');
             navigate("/dashboard")
         } catch (error) {
-            console.error("Error completing Sign-in:", error.message)
-            setMessage("Failed to complete Sign-in. Please try again....")
+            console.error("Error completing Sign-In:", error.message)
+            setMessage("Failed to complete Sign-In. Please try again....")
         }
     }
   return (
@@ -59,7 +59,7 @@ const FinishSignIn = () => {
                     required
                     />
                 </div>
-                <button type='submit' className='w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-800'>Complete Sign-In</button>
+                <button type='submit' className='w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700'>Complete Sign-In</button>
             </form>
         </div>
     </div>
