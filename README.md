@@ -58,7 +58,3 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ---
 
 **Maintained by:** [Your Name]
-
----
-
-**Next Step:** Would you like me to add a section on how to create **Private Routes** (protecting certain pages so only logged-in users can see them)?
