@@ -56,5 +56,3 @@ Uses `<Link>` for declarative navigation and `useNavigate` for logic-based redir
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
 
 ---
-
-**Maintained by:** [Your Name]
