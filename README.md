@@ -50,5 +50,3 @@ Authenticates credentials against Firebase. If valid, it redirects the user to t
 ### 3. Navigation
 
 Uses `<Link>` for declarative navigation and `useNavigate` for logic-based redirects, ensuring a Single Page Application (SPA) experience without page reloads.
-
-## 🤝 Contributing
