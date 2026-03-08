@@ -33,7 +33,6 @@ A secure and responsive authentication system built with **React.js**, **Firebas
 
 4. **Start the development server:**
 ```bash
-npm run dev
 
 ```
 
