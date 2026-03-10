@@ -31,11 +31,6 @@ A secure and responsive authentication system built with **React.js**, **Firebas
 * Update your `src/firebase/firebase.config.js` with your specific credentials.
 
 
-4. **Start the development server:**
-```bash
-
-```
-
 ## 📝 Key Components Explained
 
 ### 1. Registration Logic
