@@ -41,6 +41,6 @@ Checks if passwords match and satisfy the 6-character minimum requirement before
 
 Authenticates credentials against Firebase. If valid, it redirects the user to the home/dashboard. It includes error handling to notify users of invalid credentials.
 
-### 3. Navigations
+### 3
 
 Uses `<Link>` for declarative navigation and `useNavigate` for logic-based redirects, ensuring a Single Page Application (SPA) experience without page reloads.
